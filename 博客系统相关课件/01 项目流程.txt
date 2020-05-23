@@ -36,6 +36,10 @@
 			class UserInfo(AbstractUser):
 			    """
 			    用户信息
+			    UserInfo继承AbstractUser，统一用Userinfo
+			    telephone：手机号
+			    avatar：上传头像
+			    create_time：创建时间
 			    """
 			    nid = models.AutoField(primary_key=True)
 			    telephone = models.CharField(max_length=11, null=True, unique=True)
@@ -76,6 +80,9 @@
 
 
 			class Tag(models.Model):
+			    """
+			    标签
+			    """
 			    nid = models.AutoField(primary_key=True)
 			    title = models.CharField(verbose_name='标签名称', max_length=32)
 			    blog = models.ForeignKey(verbose_name='所属博客', to='Blog', to_field='nid',on_delete=models.CASCADE)
@@ -85,6 +92,9 @@
 
 
 			class Article(models.Model):
+			    """
+			    文章
+			    """
 			    nid = models.AutoField(primary_key=True)
 			    title = models.CharField(max_length=50, verbose_name='文章标题')
 			    desc = models.CharField(max_length=255, verbose_name='文章描述')
@@ -142,9 +152,7 @@
 
 			class Comment(models.Model):
 			    """
-
 			    评论表
-
 			    """
 			    nid = models.AutoField(primary_key=True)
 			    user = models.ForeignKey(verbose_name='评论者', to='UserInfo', to_field='nid',on_delete=models.CASCADE)
@@ -152,7 +160,7 @@
 			    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 			    content = models.CharField(verbose_name='评论内容', max_length=255)
 
-
+                自关联
 			    parent_comment=models.ForeignKey("self",null=True,on_delete=models.CASCADE)
 
 
